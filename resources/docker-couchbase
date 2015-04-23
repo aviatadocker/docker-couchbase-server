@@ -144,9 +144,11 @@ case "$1" in
 		done
 		
 		echo "* Bucket list post-transfer:";
-		echo `GET /buckets | jsawk 'return this.name'`
+		# TODO: Ue curl to query the couchbase server.
+		#echo `GET /buckets | jsawk 'return this.name'`
 		
 		echo "* adding self to new Couchbase cluster";
+		# Re-init the cluster to propigate the change to all the nodes.
 		/opt/couchbase/bin/couchbase-cli cluster-init -c 127.0.0.1:8091 --cluster-init-username=$CB_USERNAME --cluster-init-password=$CB_PASSWORD --cluster-init-ramsize=$CLUSTER_RAMSIZE --wait
 		echo "";
 		echo "Couchbase is READY!"
