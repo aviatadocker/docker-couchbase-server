@@ -58,6 +58,11 @@ fi
 
 # Conditional logic based on command sent in
 case "$1" in
+	initial)
+		start
+		create
+		restore
+	;;
 	start)
 		echo "Couchbase Started!";
 		echo "------------------";
