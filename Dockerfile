@@ -78,4 +78,4 @@ ADD resources/couchbase.txt /app/resources/couchbase.txt
 ADD resources/default.conf /app/conf/default.conf
 
 ENTRYPOINT ["docker-couchbase"]
-CMD	["start"]
+CMD	["initial"]
