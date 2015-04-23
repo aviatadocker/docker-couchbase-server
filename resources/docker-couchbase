@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# This function retries a command until it recieves a successful exit code.
 function untilsuccessful() {
     "$@"
     while [ $? -ne 0 ]
@@ -10,8 +11,8 @@ function untilsuccessful() {
     done
 }
 
-LOCAL_IP=`hostname --ip-address`
-IP=${IP:-$LOCAL_IP}
+#LOCAL_IP=`hostname --ip-address`
+#IP=${IP:-$LOCAL_IP}
 
 # Ensure proper directories before startup
 cd /opt/couchbase
@@ -172,8 +173,8 @@ case "$1" in
 	restore)
 		echo "* restoring Couchbase from backup";
 		/opt/couchbase/bin/couchbase-cli cbrestore /app/backup  http://$CB_USERNAME:$CB_PASSWORD@127.0.0.1:8091 \
-		--bucket-source=$CB_BUCKET -v
-
+		--bucket-source=$CB_BUCKET --bucket-destination=$CB_BUCKET -v
+# NOTE: --bucket-destination, if unspecified, defaults to the same value as bucket-source.
 		echo "* adding self to new Couchbase cluster";
 		/opt/couchbase/bin/couchbase-cli cluster-init -c 127.0.0.1:8091 --cluster-init-username=$CB_USERNAME --cluster-init-password=$CB_PASSWORD --cluster-init-ramsize=$CLUSTER_RAMSIZE --wait		
 	;;
