@@ -5,7 +5,7 @@
 # Twitter - http://www.twitter.com/dalekurt
 
 FROM stackbrew/ubuntu:14.04
-MAINTAINER Dale-Kurt Murray "dalekurt.murray@gmail.com"
+MAINTAINER jmarsh.ext@aviatainc.com "jmarsh.ext@aviatainc.com"
 
 ENV CB_USERNAME		Administrator
 ENV CB_PASSWORD		couchbaseadmin
