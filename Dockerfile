@@ -32,7 +32,8 @@ RUN wget -O/tmp/$CB_FILENAME $CB_SOURCE && \
 	dpkg -i /tmp/$CB_FILENAME && \
 	rm /tmp/$CB_FILENAME
 
-# SpiderMonkey, jsawk, and resty
+# SpiderMonkey, jsawk, and resty - these are used for the docker-couchbase script.
+# The echo prints out the current buckets for tracing in the log file.
 RUN apt-get install -y libmozjs-24-bin \
 	&& ln -s /usr/bin/js24 /usr/local/bin/js \
 	&& echo "export JS=/usr/local/bin/js" > /etc/jsawkrc \
@@ -56,20 +57,24 @@ RUN mkdir -p /app \
 	&& chown -R couchbase:couchbase /app
 VOLUME ["/app/data"]
 VOLUME ["/app/backup"]
-VOLUME ["/app/volume"]
+VOLUME ["/app/logs"]
 
-# Add bootstrapper
+# Add bootstrapper.  Copy the script into the docker container.
 ADD resources/docker-couchbase /usr/local/bin/docker-couchbase
+# Export couchbase path so the commands are accessible from the command line.
 RUN export PATH=$PATH:/opt/couchbase/bin \
 	&& echo "export PATH=$PATH:/opt/couchbase/bin" >> /etc/bash.bashrc
+# These ports are exposed even outside of a docker-compose launch.
 EXPOSE 8091 8092 11210
 
-# Add backup to /app/backup
+# Add backup to /app/backup.  Copy in the backup files.
+# Conider: we may want to do a volume mount here if we don't want to put out database image under source control.
 ADD backup /app/backup
 
 # Add Resources
 ADD resources/couchbase.txt /app/resources/couchbase.txt
-ADD resources/docker.txt /app/resources/docker.txt
+# ADD resources/docker.txt /app/resources/docker.txt
+# This files containts the list of buckets to create:
 ADD resources/default.conf /app/conf/default.conf
 
 ENTRYPOINT ["docker-couchbase"]
