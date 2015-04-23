@@ -172,7 +172,7 @@ case "$1" in
 	;;
 	restore)
 		echo "* restoring Couchbase from backup";
-		/opt/couchbase/bin/couchbase-cli cbrestore /app/backup  http://$CB_USERNAME:$CB_PASSWORD@127.0.0.1:8091 \
+		/opt/couchbase/bin/cbrestore /app/backup  http://$CB_USERNAME:$CB_PASSWORD@127.0.0.1:8091 \
 		--bucket-source=$CB_BUCKET --bucket-destination=$CB_BUCKET -v
 # NOTE: --bucket-destination, if unspecified, defaults to the same value as bucket-source.
 		echo "* adding self to new Couchbase cluster";
