@@ -69,7 +69,7 @@ EXPOSE 8091 8092 11210
 
 # Add backup to /app/backup.  Copy in the backup files.
 # Conider: we may want to do a volume mount here if we don't want to put out database image under source control.
-ADD backup /app/backup
+# ADD backup /app/backup
 
 # Add Resources
 ADD resources/couchbase.txt /app/resources/couchbase.txt
