@@ -65,7 +65,7 @@ ADD resources/docker-couchbase /usr/local/bin/docker-couchbase
 RUN export PATH=$PATH:/opt/couchbase/bin \
 	&& echo "export PATH=$PATH:/opt/couchbase/bin" >> /etc/bash.bashrc
 # These ports are exposed even outside of a docker-compose launch.
-EXPOSE 8091 8092 11210
+EXPOSE 4369 8091 8092 11209 11210 11211 11214 11215 18091 18092 21100-2129
 
 # Add backup to /app/backup.  Copy in the backup files.
 # Conider: we may want to do a volume mount here if we don't want to put out database image under source control.
