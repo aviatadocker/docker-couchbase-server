@@ -4,7 +4,7 @@
 # Docker Hub - http://hub.docker.com/u/dalekurt/couchbase-server
 # Twitter - http://www.twitter.com/dalekurt
 
-FROM stackbrew/ubuntu:14.04
+FROM aviata/ubuntu
 MAINTAINER jmarsh.ext@aviatainc.com "jmarsh.ext@aviatainc.com"
 
 ENV CB_USERNAME		Administrator
@@ -17,7 +17,7 @@ ENV CB_BUCKET		mystuff
 # note: SpiderMonkey build req's: https://developer.mozilla.org/en-US/docs/Mozilla/Developer_guide/Build_Instructions/Linux_Prerequisites
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update \
-	&& apt-get install -y librtmp0 python-httplib2 language-pack-en-base vim wget curl \
+	&& apt-get install -y librtmp0 python-httplib2 language-pack-en-base  \
 	&& dpkg-reconfigure locales
 
 # Downloading and Installing Couchbase
